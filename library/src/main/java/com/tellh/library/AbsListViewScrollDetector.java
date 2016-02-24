@@ -22,8 +22,7 @@ abstract class AbsListViewScrollDetector implements AbsListView.OnScrollListener
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if(totalItemCount == 0) return;
         if (isSameRow(firstVisibleItem)) {
-            int newScrollY = getTopItemScrollY();//因为在同一行，得出顶部item的高度
-            //判断滑动的距离是否能触发动画
+            int newScrollY = getTopItemScrollY();
             boolean isSignificantDelta = Math.abs(mLastScrollY - newScrollY) > mScrollThreshold;
             if (isSignificantDelta) {
                 if (mLastScrollY > newScrollY) {
@@ -33,14 +32,13 @@ abstract class AbsListViewScrollDetector implements AbsListView.OnScrollListener
                 }
             }
             mLastScrollY = newScrollY;
-        } else {//如果已经滑过了之前那个item，不管怎样触发动画，接下来就是判断是滑动的方向
+        } else {
             if (firstVisibleItem > mPreviousFirstVisibleItem) {
                 onScrollUp();
             } else {
                 onScrollDown();
             }
             
-            //因为已经滑过了之前那个item，要重新获取一下两个值
             mLastScrollY = getTopItemScrollY();
             mPreviousFirstVisibleItem = firstVisibleItem;
         }

@@ -325,7 +325,6 @@ public class FloatingActionButton extends ImageButton {
     }
 
     private void toggle(final boolean visible, final boolean animate, boolean force) {
-        //防止在View未测量之前调用此方法
         if (mVisible != visible || force) {
             mVisible = visible;
             int height = getHeight();
@@ -475,9 +474,6 @@ public class FloatingActionButton extends ImageButton {
         return Color.HSVToColor(hsv);
     }
 
-    //以下XxxxxDetectorImpl继承于各自的ScrollDetector（各自的Listener）
-    //监听各种Scroll事件，并通过listener暴露接口回调给Activity
-    //该类通过attachXxxx方法实例化并调用setXxxxListener方法
     private class AbsListViewScrollDetectorImpl extends AbsListViewScrollDetector {
         private ScrollDirectionListener mScrollDirectionListener;
         private AbsListView.OnScrollListener mOnScrollListener;
